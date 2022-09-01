@@ -1,30 +1,31 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.testuicourse"
+        applicationId "com.example.uitestingproject"
         minSdk 24
-        targetSdk 30
+        targetSdk 32
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures {
+        dataBinding true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    testOptions {
-        unitTests {
-            includeAndroidResources = true
         }
     }
     compileOptions {
@@ -37,17 +38,78 @@ android {
 }
 
 dependencies {
+    def room_version = "2.5.0-alpha02"
+    def paging_version = "3.1.1"
+    def retrofit_version = "2.9.0"
+    def nav_version = "2.5.0"
+    def androidXTestVersion = "1.4.0"
+    def uiAutomatorVersion = "2.2.0"
+    def lifecycle_version = "2.5.1"
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    //Rx
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.5'
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+
+    //Dagger
+    implementation 'com.google.dagger:dagger:2.38.1'
+    kapt 'com.google.dagger:dagger-compiler:2.38.1'
+
+    //Paging
+    implementation "androidx.paging:paging-runtime:$paging_version"
+    implementation "androidx.paging:paging-rxjava3:$paging_version"
+
+    //Room
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-paging:$room_version"
+    implementation "androidx.room:room-rxjava3:$room_version"
+
+    //Retrofit
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+
+    //Picasso
+    implementation 'com.squareup.picasso:picasso:2.8'
+
+    //Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+    implementation 'androidx.databinding:databinding-common:7.2.1'
+
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version")
 
     testImplementation 'junit:junit:4.13.2'
-    testImplementation "org.robolectric:robolectric:4.6"
-    testImplementation "com.google.truth:truth:1.1.3"
 
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    // Robolectric
+    testImplementation "org.robolectric:robolectric:4.6"
+
+    androidTestImplementation "androidx.test:runner:$androidXTestVersion"
+    androidTestImplementation "androidx.test:rules:$androidXTestVersion"
+    androidTestImplementation "androidx.test.ext:junit:1.1.3"
+
+    androidTestImplementation "androidx.test.uiautomator:uiautomator:$uiAutomatorVersion"
+    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
+
+    // Espresso
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.4.0'
+    androidTestImplementation('androidx.test.espresso:espresso-intents:3.4.0')
+    androidTestImplementation('androidx.test.espresso:espresso-contrib:3.4.0')
+
+    androidTestImplementation('androidx.test.uiautomator:uiautomator:2.2.0')
+    debugImplementation "androidx.fragment:fragment-testing:1.5.2"
+}
+
+kapt {
+    correctErrorTypes = true
 }

@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">TestUICourse</string>
+    <string name="app_name">UITestingProject</string>
+
+    <string name="fragment_main_dialog_alert_offline_title">You are offline</string>
+    <string name="fragment_main_dialog_alert_offline_message">Detailed info is available only in online mode</string>
+    <string name="fragment_main_dialog_alert_offline_btn_dismiss">Dismiss</string>
+
+    <string name="fragment_main_top_alert_offline_mode">Ur in offline mode</string>
 </resources>
